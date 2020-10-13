@@ -1,25 +1,25 @@
 steps:
 
 - id: "docker-compose"
-name: 'docker/compose'
-args: ['-f','docker-compose.yaml','up','-d']
+  name: 'docker/compose'
+  args: ['-f','docker-compose.yaml','up','-d']
 
 - id: "Chown in /var/www"
-name: 'docker'
-args: ['exec','-u','root','-t','app','chown','-R','www-data:www-data','/var/www']
+  name: 'docker'
+  args: ['exec','-u','root','-t','app','chown','-R','www-data:www-data','/var/www']
 
 - id: "Copying .env"
-name: 'docker'
-args: ['exec','-t','app','cp','.env.example','.env']
+  name: 'docker'
+  args: ['exec','-t','app','cp','.env.example','.env']
 
 - id: "Running key:generate .env"
-name: 'docker'
-args: ['exec','-t','app','php','/var/www/artisan','key:generate']
+  name: 'docker'
+  args: ['exec','-t','app','php','/var/www/artisan','key:generate']
 
 - id: "Running migrations"
-name: 'docker'
-args: ['exec','-t','app','php','/var/www/artisan','migrate']
+  name: 'docker'
+  args: ['exec','-t','app','php','/var/www/artisan','migrate']
 
 - id: "Running tests(phpunit)"
-name: 'docker'
-args: ['exec','-t','app','php','/var/www/vendor/bin/phpunit','-c','/var/www/phpunit.xml']
+  name: 'docker'
+  args: ['exec','-t','app','php','/var/www/vendor/bin/phpunit','-c','/var/www/phpunit.xml']

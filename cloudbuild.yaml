@@ -8,13 +8,13 @@ steps:
   name: 'docker'
   args: ['ps']
 
-- id: "Running composer"
-  name: 'docker'
-  args: ['exec','-t','app','composer','install']
-
 - id: "Chown in /var/www"
   name: 'docker'
   args: ['exec','-u','root','-t','app','chown','-R','www-data:www-data','/var/www']
+
+- id: "Running composer"
+  name: 'docker'
+  args: ['exec','-t','app','composer','install']
 
 - id: "Copying .env"
   name: 'docker'
